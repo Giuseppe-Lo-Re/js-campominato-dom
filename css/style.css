@@ -73,6 +73,10 @@ main {
     align-items: center;
 }
 
-.square span {
+.square.red {
+    background-color: red;
+}
 
+.square.blue {
+    background-color: skyblue;
 }

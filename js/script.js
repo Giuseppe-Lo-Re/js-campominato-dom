@@ -1,10 +1,20 @@
+// Seleziono l'id del tasto play e ne conservo il dato in una variabile:
 const playBtn = document.querySelector('#play');
+
+// Aggiungo un evento al click sul tasto, che faà partire il gioco:
 playBtn.addEventListener('click', startGame);
 
 function startGame() {
+    
     // HTML Elements
     const mainGrid = document.querySelector('#main-grid');
-     
+
+    // Creo un reset della griglia all'inizio di ogni nuova partita che svuoterà la griglia precedente:
+    mainGrid.innerHTML = '';
+
+    // Creo un reset delle classi all'inizio di ogni nuova:
+    mainGrid.className = '';
+ 
     // Creo una variabile per il numero di bombe:
     const numberOfBombs = 16;
 
@@ -50,34 +60,58 @@ function startGame() {
 
     // Invoco la funzione che genererà la griglia:
     gridGenerator();
-
+ 
 // -------------------------------------------------- //
 //                  DOM FUNCTION                      //
 // -------------------------------------------------- // 
+
 // GENERATORE DI GRIGLIE:
 // - Aggiunge classi alla griglia per le dimensioni degli square;
 // - Crea una cella partendo da questo template:<div class="square"><span>7</span></div>;
 
 function gridGenerator() {
 
-    // Aggiungo classi alla griglia:
+    // Aggiungo classi per le dimensioni della griglia :
     mainGrid.classList.add(mainGridClass);
 
+    // Creo un ciclo for per i numeri da 1 al range massimo:
     for(let i = 1; i <= gameMaxRange; i++) {
 
         // Creo una cella il cui interno popolo di un div: 
         const newCell = document.createElement('div');
 
         // che a sua volta conterrà uno span con dentro il numero generato dal ciclo for:
-        newCell.innerHTML = `<span>${i}</span>`;
+        newCell.innerHTML = `<span>${i}</span>`; 
 
         // Aggiungo la classe:
         newCell.classList.add('square');
 
         // ed appendo la cella alla griglia:
-        mainGrid.append(newCell);
+        mainGrid.append(newCell); 
+
+        // aggiungo l'evento al click sul numero:
+        newCell.addEventListener('click', handleCellClick)
     }
     
+    // GESTORE DEL CLICK SULLA CELLA:
+    // - Legge il numero nello span e lo trasforma in numero;
+    // - Se il numero è presente nell'array bombs; la cella diventa rossa e compare un messaggio "Hai Perso!"
+    //      altrimenti la cella diventa azzurra e conserva il numero nell'array winningNumbers;
+    // - Quando la lunghezza dell'array winningNumbers sarà uguale a quella di maxAttempts(=massimo tentativi raggiunti),
+    //      il gioco termina con relativo messaggio "Hai Vinto!";
+    function handleCellClick() {
+
+        // Leggo il numero nello span e lo trasforma in numero:
+        const thisNumber = parseInt(this.querySelector('span').innerHTML);
+        
+        // Se il numero è presente nell'array bombs; la cella diventa rossa e compare un messaggio "Hai Perso!"
+        if(bombs.includes(thisNumber)) {
+            this.classList.add('red');
+
+        }
+
+         
+    }
 
 }
 
