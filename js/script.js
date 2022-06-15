@@ -57,6 +57,7 @@ function startGame() {
 
     // Dichiaro un array vuoto che conterrà i numeri vincenti, diversi dai numeri bomba:
     const winningNumber = []; 
+    console.log('tentativi', winningNumber.length)
 
     // Invoco la funzione che genererà la griglia:
     gridGenerator();
@@ -105,47 +106,55 @@ function gridGenerator() {
         const thisNumber = parseInt(this.querySelector('span').innerHTML);
         
         // Inizializzo una variabile che mi servirà come argomento per la funzione endGame:
-        let result;
 
         // Se il numero è presente nell'array bombs:
         if(bombs.includes(thisNumber)) {
 
             // la cella diventa rossa:
             this.classList.add('red');
-
-            result = 'lost';
-        
+            endGame('lost');
+            
         // altrimenti pusho il numero nell'array winningNumbers:    
-        } else  {
+        } else {
             winningNumber.push(thisNumber);
-
             // e la cella diventa azzurra:
             this.classList.add('blue');
-
-            result = 'won';
+            
+            if(winningNumber.length === maxAttempts) {
+                endGame('won');
+            }  
         }
     }
 }
 }
-// // Quando ho finito le mia operazioni la cella non è più cliccabile:
-// mainGrid.style.pointerEvents = 'none';
+
+
+// Seleziono l'id del div user-message e ne conservo il dato in una variabile:
+const userMessage = document.querySelector('#user-message');
 
 // GENERATORE DI MESSAGGIO FINE GIOCO:
 // - Input: "won" o "lost"
 // - Return: userMessageDiv.innerHTML
 function endGame(result) {
-    if(result = 'lost') {
-        userMessageDiv.innerHTML = `HAI PERSO!`;
+    if(result === 'lost') {
+
+        // Invio un messaggio nel DOM 'HAI PERSO!':
+        userMessage.innerHTML = `HAI PERSO!`;
+
+        // Seleziono l'id della griglia:
+        const mainGrid = document.getElementById('main-grid');
+
+        // Rendo la griglia non più cliccabile:
         mainGrid.style.pointerEvents = 'none';
     } else {
-        userMessageDiv.innerHTML = `HAI VINTO!`
+
+        // Invio un messaggio nel DOM 'HAI VINTO!':
+        userMessage.innerHTML = `HAI VINTO!`   
+
+        // Rendo la griglia non più cliccabile:
         mainGrid.style.pointerEvents = 'none';
-    }
-
-    mainGrid.style.pointerEvents = 'none';
+    }  
 }
-
-
 
 // -------------------------------------------------- //
 //                  UTILITY FUNCTION                  //

@@ -79,3 +79,8 @@ main {
 .square.blue {
     background-color: skyblue;
 }
+
+#user-message {
+    padding-left: 50px;
+    font-weight: 700;
+}
