@@ -36,9 +36,6 @@ h1 {
 main {
     background-color: #7fffd4;
     padding: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #main-grid {
@@ -46,7 +43,8 @@ main {
     height: 600px;
     display: flex;
     flex-wrap: wrap;
-    align-items:flex-start
+    align-items:flex-start;
+    margin: 0 auto;
 
 }
 

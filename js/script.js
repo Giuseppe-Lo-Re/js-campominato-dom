@@ -1,8 +1,24 @@
 // Seleziono l'id del tasto play e ne conservo il dato in una variabile:
 const playBtn = document.querySelector('#play');
 
+// Dichiaro un array vuoto che conterrà i numeri vincenti, diversi dai numeri bomba:
+const winningNumbers = []; 
+
+// Dichiaro una variabile che registrerà i valori del livello di difficoltà attraverso un ciclo switch:
+let gameMaxRange;
+
+// Inizializzo una cella il cui interno popolo di un div: 
+let newCell;
+
+// Inizializzo una variabile a cui attribuirò il valore dei singoli span:
+let thisNumber; 
+
+// Inizializzo la funzione per generare i 16 numeri bomba:
+let bombs;
+
 // Aggiungo un evento al click sul tasto, che faà partire il gioco:
 playBtn.addEventListener('click', startGame);
+
 
 function startGame() {
     
@@ -22,8 +38,6 @@ function startGame() {
     const userLevel = document.querySelector('#user-level').value;
 
     // Definisco i livelli di difficoltà: 1)1-100, 2)1-81, 3)1-49:
-    // Dichiaro una variabile che registrerà i valori del livello di difficoltà attraverso un ciclo switch:
-    let gameMaxRange;
 
     // Creo una variabile che definirà le classi da applicare alla griglia:
     let mainGridClass;
@@ -45,28 +59,15 @@ function startGame() {
 
     // Genero 16 numeri casuali che rappresenteranno le bombe, che avranno un range differente a secondo del livello selezionato:
     // Invoco la funzione per generare i 16 numeri:
-    const bombs = arrayRndIntergerGenerator(16, 1, gameMaxRange);
+    bombs = arrayRndIntergerGenerator(16, 1, gameMaxRange);
     // console.log('numeri "bomba"', bombs)
 
     // Definisco il numero massimo di tentativi, che sarà uguale al range massimo del livello - il numero delle bombe:
     let maxAttempts = gameMaxRange - numberOfBombs;
-    // console.log('numero massimo tentativi', maxAttempts)
+   
 
     // definisco una variabile booleana per far continuare il gioco, che di default avrà valore = true:
     let gameContinues = true;
-
-    // Dichiaro un array vuoto che conterrà i numeri vincenti, diversi dai numeri bomba:
-    const winningNumber = []; 
-    
-    // Creo un ciclo for che terraà conto del numero dei tentativi effettuati ( = al numero dei numeri vincenti):
-    for(let i = 0; i < winningNumber.length; i++) {
-        const thisNumber = winningNumber[i];
-        totalAttempts += thisNumber;
-        console.log('tentativi', totalAttempts);
-        
-    }
-    
-    
 
     // Invoco la funzione che genererà la griglia:
     gridGenerator();
@@ -88,7 +89,7 @@ function gridGenerator() {
     for(let i = 1; i <= gameMaxRange; i++) {
 
         // Creo una cella il cui interno popolo di un div: 
-        const newCell = document.createElement('div');
+        newCell = document.createElement('div');
 
         // che a sua volta conterrà uno span con dentro il numero generato dal ciclo for:
         newCell.innerHTML = `<span>${i}</span>`; 
@@ -112,7 +113,7 @@ function gridGenerator() {
     function handleCellClick() {
 
         // Leggo il numero nello span e lo trasforma in numero:
-        const thisNumber = parseInt(this.querySelector('span').innerHTML);
+        thisNumber = parseInt(this.querySelector('span').innerHTML);
         
         // Inizializzo una variabile che mi servirà come argomento per la funzione endGame:
 
@@ -125,22 +126,25 @@ function gridGenerator() {
             
         // altrimenti pusho il numero nell'array winningNumbers:    
         } else {
-            winningNumber.push(thisNumber);
+            winningNumbers.push(thisNumber);
             // e la cella diventa azzurra:
             this.classList.add('blue');
             
-            if(winningNumber.length === maxAttempts) {
+            
+            if(winningNumbers.length === maxAttempts) {
                 endGame('won');
+
             }  
         }
+        
     }
+    
 }
 }
 
 
 // Seleziono l'id del div user-message e ne conservo il dato in una variabile:
 const userMessage = document.querySelector('#user-message');
-
 // GENERATORE DI MESSAGGIO FINE GIOCO:
 // - Input: "won" o "lost"
 // - Return: userMessageDiv.innerHTML
@@ -148,18 +152,30 @@ function endGame(result) {
     if(result === 'lost') {
 
         // Invio un messaggio nel DOM 'HAI PERSO!':
-        userMessage.innerHTML = `HAI PERSO!`;
+        userMessage.innerHTML = `HAI PERSO! Il tuo punteggio è ${winningNumbers.length}`;
 
         // Seleziono l'id della griglia:
         const mainGrid = document.getElementById('main-grid');
 
         // Rendo la griglia non più cliccabile:
         mainGrid.style.pointerEvents = 'none';
+
+        // Creo una variabile che conterrà un array di elementi con la classe .square:
+        let squares = document.querySelectorAll('.square');
+        console.log(bombs)
+        for(let i = 0; i < gameMaxRange; i++) {
+
+            // Salvo il numero interno allo span in modo da poter usare come indice:
+            let squareNumber = parseInt(squares[i].querySelector('span').innerHTML);
+            if(bombs.includes(squareNumber)) {
+                squares[i].classList.add('red');
+            }
+        }
     } else {
 
         // Invio un messaggio nel DOM 'HAI VINTO!':
-        userMessage.innerHTML = `HAI VINTO!`   
-
+        userMessage.innerHTML = `HAI VINTO! Il tuo punteggio è ${winningNumbers.length}`   
+        console.log(winningNumbers.length)
         // Rendo la griglia non più cliccabile:
         mainGrid.style.pointerEvents = 'none';
     }  
