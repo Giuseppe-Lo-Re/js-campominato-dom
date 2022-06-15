@@ -114,8 +114,6 @@ function gridGenerator() {
 
         // Leggo il numero nello span e lo trasforma in numero:
         thisNumber = parseInt(this.querySelector('span').innerHTML);
-        
-        // Inizializzo una variabile che mi servirà come argomento per la funzione endGame:
 
         // Se il numero è presente nell'array bombs:
         if(bombs.includes(thisNumber)) {
@@ -127,13 +125,12 @@ function gridGenerator() {
         // altrimenti pusho il numero nell'array winningNumbers:    
         } else {
             winningNumbers.push(thisNumber);
+
             // e la cella diventa azzurra:
             this.classList.add('blue');
             
-            
             if(winningNumbers.length === maxAttempts) {
                 endGame('won');
-
             }  
         }
         
@@ -162,14 +159,16 @@ function endGame(result) {
 
         // Creo una variabile che conterrà un array di elementi con la classe .square:
         let squares = document.querySelectorAll('.square');
-        console.log(bombs)
+        
+        let j = 1;
         for(let i = 0; i < gameMaxRange; i++) {
 
             // Salvo il numero interno allo span in modo da poter usare come indice:
             let squareNumber = parseInt(squares[i].querySelector('span').innerHTML);
-            if(bombs.includes(squareNumber)) {
+            if(bombs.includes(j)) {
                 squares[i].classList.add('red');
             }
+            j++;
         }
     } else {
 
