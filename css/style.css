@@ -44,7 +44,6 @@ main {
 #main-grid {
     width: 600px;
     height: 600px;
-    background-color: lightskyblue;
     display: flex;
     flex-wrap: wrap;
     align-items:flex-start

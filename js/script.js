@@ -104,28 +104,47 @@ function gridGenerator() {
         // Leggo il numero nello span e lo trasforma in numero:
         const thisNumber = parseInt(this.querySelector('span').innerHTML);
         
-        // Se il numero è presente nell'array bombs; la cella diventa rossa:
+        // Inizializzo una variabile che mi servirà come argomento per la funzione endGame:
+        let result;
+
+        // Se il numero è presente nell'array bombs:
         if(bombs.includes(thisNumber)) {
+
+            // la cella diventa rossa:
             this.classList.add('red');
 
-            //  e compare un messaggio di fine gioco:
-            endGame();
+            result = 'lost';
+        
+        // altrimenti pusho il numero nell'array winningNumbers:    
+        } else  {
+            winningNumber.push(thisNumber);
 
+            // e la cella diventa azzurra:
+            this.classList.add('blue');
 
-            // Quando ho finito le mia operazioni la cella non è più cliccabile:
-            this.style.pointerEvents = 'none';
-
+            result = 'won';
         }
-
-         
     }
-
 }
+}
+// // Quando ho finito le mia operazioni la cella non è più cliccabile:
+// mainGrid.style.pointerEvents = 'none';
 
 // GENERATORE DI MESSAGGIO FINE GIOCO:
-// 
+// - Input: "won" o "lost"
+// - Return: userMessageDiv.innerHTML
+function endGame(result) {
+    if(result = 'lost') {
+        userMessageDiv.innerHTML = `HAI PERSO!`;
+        mainGrid.style.pointerEvents = 'none';
+    } else {
+        userMessageDiv.innerHTML = `HAI VINTO!`
+        mainGrid.style.pointerEvents = 'none';
+    }
 
+    mainGrid.style.pointerEvents = 'none';
 }
+
 
 
 // -------------------------------------------------- //
