@@ -46,18 +46,27 @@ function startGame() {
     // Genero 16 numeri casuali che rappresenteranno le bombe, che avranno un range differente a secondo del livello selezionato:
     // Invoco la funzione per generare i 16 numeri:
     const bombs = arrayRndIntergerGenerator(16, 1, gameMaxRange);
-    console.log('numeri "bomba"', bombs)
+    // console.log('numeri "bomba"', bombs)
 
     // Definisco il numero massimo di tentativi, che sarà uguale al range massimo del livello - il numero delle bombe:
     let maxAttempts = gameMaxRange - numberOfBombs;
-    console.log('numero massimo tentativi', maxAttempts)
+    // console.log('numero massimo tentativi', maxAttempts)
 
     // definisco una variabile booleana per far continuare il gioco, che di default avrà valore = true:
     let gameContinues = true;
 
     // Dichiaro un array vuoto che conterrà i numeri vincenti, diversi dai numeri bomba:
     const winningNumber = []; 
-    console.log('tentativi', winningNumber.length)
+    
+    // Creo un ciclo for che terraà conto del numero dei tentativi effettuati ( = al numero dei numeri vincenti):
+    for(let i = 0; i < winningNumber.length; i++) {
+        const thisNumber = winningNumber[i];
+        totalAttempts += thisNumber;
+        console.log('tentativi', totalAttempts);
+        
+    }
+    
+    
 
     // Invoco la funzione che genererà la griglia:
     gridGenerator();
