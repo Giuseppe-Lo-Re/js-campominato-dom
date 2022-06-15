@@ -104,9 +104,16 @@ function gridGenerator() {
         // Leggo il numero nello span e lo trasforma in numero:
         const thisNumber = parseInt(this.querySelector('span').innerHTML);
         
-        // Se il numero è presente nell'array bombs; la cella diventa rossa e compare un messaggio "Hai Perso!"
+        // Se il numero è presente nell'array bombs; la cella diventa rossa:
         if(bombs.includes(thisNumber)) {
             this.classList.add('red');
+
+            //  e compare un messaggio di fine gioco:
+            endGame();
+
+
+            // Quando ho finito le mia operazioni la cella non è più cliccabile:
+            this.style.pointerEvents = 'none';
 
         }
 
@@ -115,6 +122,8 @@ function gridGenerator() {
 
 }
 
+// GENERATORE DI MESSAGGIO FINE GIOCO:
+// 
 
 }
 
