@@ -13,7 +13,6 @@ body {
 /* Header */
 header {
     height: 80px;
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -32,12 +31,13 @@ header {
 } 
 
 h1 {
-    padding: 5px 1000px 0 5px;
+    padding: 5px 0;
 }
 
 #user-level {
     font-size: 20px;
 }
+/* END Header */
 
 /* Main */
 main {
@@ -78,12 +78,12 @@ main {
 }
 
 .square.red {
-    background-color: red;
+    background-color: #dc143d;
     color: white;
 }
 
 .square.blue {
-    background-color: skyblue;
+    background-color: #6495ed;
     color: white;
 }
 
@@ -92,5 +92,6 @@ main {
     font-weight: 700;
     font-size: 30px;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 10px;
 }
+/* END Main */
