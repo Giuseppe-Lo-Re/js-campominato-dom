@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+/* Common */
+body {
+    font-family: sans-serif;
+}
 
 /* Header */
 header {
@@ -28,14 +32,17 @@ header {
 } 
 
 h1 {
-    padding-left: 10px;
-    padding-top: 5px;
+    padding: 5px 1000px 0 5px;
+}
+
+#user-level {
+    font-size: 20px;
 }
 
 /* Main */
 main {
     background-color: #7fffd4;
-    padding: 100px;
+    padding: 50px;
 }
 
 #main-grid {
@@ -72,13 +79,18 @@ main {
 
 .square.red {
     background-color: red;
+    color: white;
 }
 
 .square.blue {
     background-color: skyblue;
+    color: white;
 }
 
 #user-message {
     padding-left: 50px;
     font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 20px;
 }
