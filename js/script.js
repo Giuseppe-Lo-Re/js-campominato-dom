@@ -112,6 +112,9 @@ function gridGenerator() {
     //      il gioco termina con relativo messaggio "Hai Vinto!";
     function handleCellClick() {
 
+        // Rendo la cella non più cliccabile:
+        this.style.pointerEvents = 'none';
+
         // Leggo il numero nello span e lo trasforma in numero:
         thisNumber = parseInt(this.querySelector('span').innerHTML);
 
